@@ -1,0 +1,70 @@
+
+
+<div class="navbar">
+    <a href="javascaript:void(0)"> Hi {{loginId}}</a>
+    <a href="javascaript:void(0)" class="margin-css" (click)="logout()">Logout</a>
+</div>
+<div>
+    <button type="button" class="btn btn-primary btn-lg margin"  (click)="getIpAddress()">Get IP Address</button>
+    <span *ngIf="ipAddress">IP address is : {{ipAddress}}</span>
+    
+</div>
+<hr>
+
+<form>
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+            <input type="text" class="form-control" name="searchString" placeholder="Type to search..." [(ngModel)]="searchString">
+        </div>
+    </div>
+</form>
+<h1>Details</h1>
+<div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let item of itemList | searchFilter : { firstname: searchString, lastname: searchString ,email: searchString}  : false; index as i;">
+        <tr *ngIf="itemList.length!==0">
+          <td>{{item.firstname}}</td>
+          <td>{{item.lastname}}</td>
+          <td>{{item.email}}</td>
+        </tr>
+        <tr *ngIf="!itemList">
+            <td colspan="2">No Data Found</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Warning</h4>
+  </div>
+  <div class="modal-body">
+    You will be logged out in 30 second
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary btn-lg"  (click)="stayLoggedIn()">OK</button>
+  </div>
+</ng-template>
+
+<ng-template #template1>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Warning</h4>
+  </div>
+  <div class="modal-body">
+    Do you really want to logout.
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-primary btn-lg margin"  (click)="stayLoggedIn()">No</button>
+    <button type="button" class="btn btn-primary btn-lg"  (click)="clearLocaStorage()">Yes</button>
+  </div>
+</ng-template>
+<div class="loader"  *ngIf="show"></div>
+
+
